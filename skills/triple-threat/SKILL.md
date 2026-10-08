@@ -10,13 +10,13 @@ Review a change in rounds. Each round, fresh subagents review the same target in
 
 ## 1. Resolve the target
 
-The user's argument, `$ARGUMENTS`, is a path or a git ref. Resolve it once, before round 1:
+The user's argument, `$ARGUMENTS`, is a path or a git ref, optionally followed by instructions for the review. Resolve it once, before round 1:
 
 - **Path**: review the files under it.
 - **Git ref**: review the diff from the merge-base of `HEAD` and that ref to the working tree, including untracked files.
 - **Empty**: use the default branch as the ref, preferring its remote-tracking branch (such as `origin/main`). On the default branch, use `HEAD`.
 
-Record the resolved target (the path, or the merge-base as a commit SHA), its file list, and the change's purpose in one or two sentences (from the PR description, commit messages, or the user's request). If the file list is empty, ask the user for a target. That file list is the scope for every round. Add to it every file a fix creates or edits, and review those edits as part of the target, so later rounds see every fix.
+Record the resolved target (the path, or the merge-base as a commit SHA), its file list, and the change's purpose in one or two sentences (from the PR description, commit messages, or the user's request). Record the user's review instructions too, and apply them in every round. If the file list is empty, ask the user for a target. That file list is the scope for every round. Add to it every file a fix creates or edits, and review those edits as part of the target, so later rounds see every fix.
 
 ## 2. Review
 
