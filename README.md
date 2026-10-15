@@ -7,13 +7,13 @@ A simple agent skill that runs critical but practical reviews and fixes in round
 - **Security**: exploitable issues with a reachable attack path.
 
 When the subagents finish, the orchestrating agent: 
-- verifies each finding they return against the code
+- verifies each finding they return against the code, reproducing high- and medium-severity defects and vulnerabilities with a failing test or a run against scratch data where feasible
 - reasons about them as part of the larger system
 - accepts practical addressable issues only
 - fixes the ones it accepts at their root cause
-- re-reads the skill file and invokes a new round with only the slices those fixes might affect
+- re-reads the skill file and invokes a new round: after a high-severity fix, a full review; otherwise, a review of the fixes by only the slices they might affect
 
-The review loop stops when a round produces no high- or medium-severity fixes, when its fixes affect no slice, when a finding needs a decision from the user, or after four rounds.
+The review loop pauses for the user's decision when a finding needs one, and stops when a round produces no high- or medium-severity fixes, when its fixes affect no slice, or after four rounds.
 
 Note: Any changes made stay uncommitted.
 
@@ -26,9 +26,9 @@ npx skills add hejhi/triple-threat
 ## Usage
 
 ```text
-/triple-threat              # the current branch's changes since the default branch
+/triple-threat              # changes since the default branch, including uncommitted files
 /triple-threat <path>       # the files under a path
-/triple-threat <git-ref>    # the current branch's changes since a ref
+/triple-threat <git-ref>    # changes since a ref, including uncommitted files
 ```
 
 Plain-language instructions after the target apply to every round, for example:
